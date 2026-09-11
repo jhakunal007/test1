@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Journey Through the Unknown | Cinematic 3D Experience</title>
+  <meta name="description" content="A scroll-driven cinematic 3D space odyssey through uncharted cosmic territories, orbital megastructures, and gravitational portals.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <!-- WebGL Canvas Container -->
+  <div id="webgl-container"></div>
+
+  <!-- Noise & Vignette Overlay -->
+  <div class="cinematic-overlay" aria-hidden="true">
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+  </div>
+
+  <!-- Preloader Screen -->
+  <div id="loader" class="loader-screen">
+    <div class="loader-content">
+      <div class="loader-logo">
+        <div class="ring-spinner"></div>
+        <div class="core-point"></div>
+      </div>
+      <div class="loader-brand">CHRONOS // DEEP FIELD EXPEDITION</div>
+      <h1 class="loader-title">JOURNEY THROUGH THE UNKNOWN</h1>
+      <div class="loader-status" id="loader-status">INITIALIZING QUANTUM TELEMETRY...</div>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+      <div class="loader-percent" id="loader-percent">00%</div>
+      <button id="btn-enter" class="btn-enter" style="display: none;">ENTER THE VOID</button>
+    </div>
+  </div>
+
+  <!-- Persistent HUD Layer -->
+  <header class="hud-header">
+    <div class="hud-left">
+      <div class="hud-badge">
+        <span class="pulse-dot"></span>
+        <span class="hud-status-text">DEEP SPACE TELEMETRY</span>
+      </div>
+      <div class="hud-coords" id="hud-coords">SEC: 01 // V: 0.12c // LAT: -12.449 // LONG: 104.882</div>
+    </div>
+
+    <div class="hud-center">
+      <nav class="hud-nav" aria-label="Flight Stages">
+        <button class="nav-step active" data-target="0" title="Phase 1: The Launch">
+          <span class="step-num">01</span>
+          <span class="step-label">LAUNCH</span>
+        </button>
+        <div class="nav-connector"></div>
+        <button class="nav-step" data-target="0.33" title="Phase 2: Deep Space">
+          <span class="step-num">02</span>
+          <span class="step-label">DEEP SPACE</span>
+        </button>
+        <div class="nav-connector"></div>
+        <button class="nav-step" data-target="0.66" title="Phase 3: The Station">
+          <span class="step-num">03</span>
+          <span class="step-label">STATION</span>
+        </button>
+        <div class="nav-connector"></div>
+        <button class="nav-step" data-target="1.0" title="Phase 4: The Portal">
+          <span class="step-num">04</span>
+          <span class="step-label">PORTAL</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="hud-right">
+      <button id="btn-audio" class="btn-audio" aria-label="Toggle Audio Ambience">
+        <span class="audio-bars" id="audio-visualizer">
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span id="audio-label" class="audio-text">SOUND: OFF</span>
+      </button>
+      <div class="hud-time" id="hud-clock">00:00:00 UTC</div>
+    </div>
+  </header>
+
+  <!-- Side Flight Progress Rail -->
+  <aside class="progress-rail" aria-hidden="true">
+    <div class="rail-track">
+      <div class="rail-indicator" id="rail-indicator"></div>
+    </div>
+    <div class="rail-data">
+      <span class="rail-title">VOYAGE PROGRESS</span>
+      <span class="rail-value" id="rail-percent">000%</span>
+    </div>
+  </aside>
+
+  <!-- Scroll-Driven Sections Content -->
+  <main class="scroll-container" id="scroll-container">
+    
+    <!-- Scene 1: The Launch -->
+    <section class="scene-section scene-1" id="scene-launch">
+      <div class="scene-content">
+        <div class="scene-meta">MISSION ID: EX-904 // DEPARTURE VECTOR</div>
+        <h2 class="hero-title glitch-text" data-text="ENTER THE UNKNOWN">ENTER THE UNKNOWN</h2>
+        <p class="hero-subtitle">THE JOURNEY BEGINS</p>
+        
+        <div class="scroll-prompt" id="scroll-prompt">
+          <div class="mouse-icon">
+            <div class="mouse-wheel"></div>
+          </div>
+          <span class="prompt-text">SCROLL TO EXPLORE</span>
+          <div class="scroll-arrow"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 2: Deep Space -->
+    <section class="scene-section scene-2" id="scene-deep-space">
+      <div class="scene-content">
+        <div class="scene-meta">SECTOR 8-B // ASTEROID BELT & GAS GIANT</div>
+        <h2 class="scene-title">EXPLORE</h2>
+        <p class="scene-tagline">Beyond the boundaries of what we know.</p>
+        <div class="hud-data-chips">
+          <div class="data-chip">
+            <span class="chip-label">DENSITY</span>
+            <span class="chip-val">4.82 × 10³ /km³</span>
+          </div>
+          <div class="data-chip">
+            <span class="chip-label">RADIATION</span>
+            <span class="chip-val">0.038 RAD/S</span>
+          </div>
+          <div class="data-chip">
+            <span class="chip-label">ANOMALY</span>
+            <span class="chip-val">DETECTED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 3: The Space Station -->
+    <section class="scene-section scene-3" id="scene-station">
+      <div class="scene-content">
+        <div class="scene-meta">OUTPOST AETHON // ORBITAL MEGASYSTEM</div>
+        <h2 class="scene-title">DISCOVER</h2>
+        <p class="scene-tagline">Every destination hides a new possibility.</p>
+        <div class="hud-station-stats">
+          <div class="stat-box">
+            <div class="stat-num">08</div>
+            <div class="stat-lbl">DOCKING ARCS</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">3.4 KM</div>
+            <div class="stat-lbl">TORUS DIAMETER</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">100%</div>
+            <div class="stat-lbl">POWER ARRAY</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scene 4: The Portal -->
+    <section class="scene-section scene-4" id="scene-portal">
+      <div class="scene-content">
+        <div class="scene-meta">SINGULARITY GATEWAY // HORIZON THRESHOLD</div>
+        <h2 class="scene-title highlight-portal">WELCOME TO THE FUTURE</h2>
+        <p class="scene-tagline">THE UNKNOWN IS ONLY THE BEGINNING.</p>
+        
+        <div class="cta-wrap">
+          <button id="btn-start" class="btn-portal-cta" aria-label="Start the Journey">
+            <span class="btn-glow"></span>
+            <span class="btn-border"></span>
+            <span class="btn-content">
+              <span class="btn-icon">❖</span>
+              <span class="btn-title">START THE JOURNEY</span>
+              <span class="btn-sub">INITIALIZE HYPERSPACE</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Warp Flash FX Layer -->
+  <div id="warp-overlay" class="warp-overlay"></div>
+
+  <!-- Warp Modal Dialog -->
+  <dialog id="warp-modal" class="warp-modal" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-beacon"></span>
+        <span class="modal-subtitle">HYPERSPACE CONDUIT STABILIZED</span>
+      </div>
+      <h3 id="modal-title" class="modal-title">TRANSCENDING DIMENSIONS</h3>
+      <p class="modal-body">
+        The threshold has been crossed. Gravitational telemetry indicates an uncharted cosmic quadrant spanning infinite possibilities.
+      </p>
+      <div class="modal-metrics">
+        <div class="metric">
+          <span class="m-label">VELOCITY</span>
+          <span class="m-value">WARP 9.94</span>
+        </div>
+        <div class="metric">
+          <span class="m-label">DESTINATION</span>
+          <span class="m-value">ANDROMEDA CORE</span>
+        </div>
+        <div class="metric">
+          <span class="m-label">SIGNAL</span>
+          <span class="m-value">SYNCHRONIZED</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="btn-modal-repeat" class="btn-modal-primary">REPLAY VOYAGE</button>
+        <button id="btn-modal-close" class="btn-modal-secondary">CONTINUE EXPLORING</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
